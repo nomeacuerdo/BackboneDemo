@@ -33,14 +33,12 @@ app.applicationView = Backbone.View.extend({
 			return;
 		}
 
+		var person = new app.personModel({query: this.$input.val(), api_key: API_KEY});
 
-		var search_url = API_URL+'/search/person/?api_key='+API_KEY+'&query='+encodeURIComponent(this.$input.val());
-
-		this.collection.fetch({
-			success: function(request, response){
+		person.fetch({
+			success: function(dude){
 				console.log( 'Get response:' );
-				console.log( request );
-				console.log( response );
+				console.log( dude );
 			}
 		});
 	}

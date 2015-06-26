@@ -14,5 +14,9 @@ var appCollection = Backbone.Collection.extend({
     return this.filter(function( todo ) {
       return todo.get('completed');
     });
+  },
+  
+  sync: function(method, model, options) {
+    model.setRequestHeader('api_key' , "de7fab6bd303eb74ed839e0239ca0cef");
   }
 });

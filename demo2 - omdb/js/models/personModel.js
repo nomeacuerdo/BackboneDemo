@@ -1,6 +1,9 @@
 var app = app || {};
 
 app.personModel = Backbone.Model.extend({
+  urlRoot: 'https://api.themoviedb.org/3/search/person/',
+/*
+  ,
   //Atributos por default
   defaults: {
     id_person: 190,
