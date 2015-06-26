@@ -33,7 +33,7 @@ app.applicationView = Backbone.View.extend({
 			return;
 		}
 
-		var person = new app.personModel({query: this.$input.val(), api_key: API_KEY});
+		var person = new app.personModel({query: this.$input.val(), api_key: "de7fab6bd303eb74ed839e0239ca0cef"});
 
 		person.fetch({
 			success: function(dude){
