@@ -1,7 +1,7 @@
 var app = app || {};
 
 app.personModel = Backbone.Model.extend({
-  urlRoot: 'https://api.themoviedb.org/3/search/person/',
+  urlRoot: 'http://api.themoviedb.org/3/search/person/',
 
 /*
   ,
