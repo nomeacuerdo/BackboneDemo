@@ -1,10 +1,8 @@
 var app = app || {};
 
 app.personModel = Backbone.Model.extend({
-  //urlRoot: 'https://api.themoviedb.org/3/search/person/',
-  urlRoot: 'https://api.instagram.com/v1/tags/kittens/media/recent',
-  api_key: "", 
-  query: ""
+  urlRoot: 'https://api.themoviedb.org/3/search/person/',
+
 /*
   ,
   //Atributos por default
