@@ -5,7 +5,7 @@ app.applicationView = Backbone.View.extend({
 
     initialize:function(){	    
 	    this.$input = this.$('#search');
-	    this.$main = this.$('#main');
+	    this.$list = this.$('#list');
 
         this.collection = new appCollection(API_URL);
         this.render();
@@ -15,17 +15,6 @@ app.applicationView = Backbone.View.extend({
 	},
 
     render: function(){
-        var that = this;
-        _.each(this.collection.models, function(item){
-            that.renderPerson(item);
-        }, this);
-    },
-
-    renderPerson:function(item){
-        var personView = new app.personView({
-            model: item
-        });
-        this.$main.append(personView.render().el);
     },
 
 	searchOnEnter: function(e) {
@@ -33,13 +22,21 @@ app.applicationView = Backbone.View.extend({
 			return;
 		}
 
-		var person = new app.personModel({api_key: "dc6zaTOxFJmzC", q: this.$input.val()});
+		var gifs = new app.searchModel({api_key: "dc6zaTOxFJmzC", q: this.$input.val()});
+		var that = this;
+		
+		this.$list.html("");
 
-		person.fetch({
+		gifs.fetch({
 			data: $.param({api_key: "dc6zaTOxFJmzC", q: this.$input.val()}),
 			success: function(dude){
-				console.log( 'Get response:' );
-				console.log( dude );
+				console.log(dude);
+				_.each(dude.attributes.data, function(item){
+			        var gifView = new app.gifView({
+			            model: item
+			        });
+			        that.$list.append(gifView.render().el);
+				}, this);
 			}
 		});
 	}

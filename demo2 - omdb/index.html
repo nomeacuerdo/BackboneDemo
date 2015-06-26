@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>The good, the bad and the ugly</title>
+	<title>Slack's conversation enhancer</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
@@ -10,17 +10,23 @@
 	<section id="todoapp">
 		<header id="header" class="well bs-component">
 			<div class="container">
-				<div class="text-center"><img src="assets/logo.png" alt="Logo"></div>
+				<div class="text-center">
+				<h1>Slack's conversation enhancer</h1>
+				</div>
 				<div class="form-group">
 					<div class="col-lg-12">
-						<input type="text" class="form-control" id="search" placeholder="Actor's name">
+						<input type="text" class="form-control" id="search" placeholder="Tag">
 					</div>
 					<div class="clearfix"></div>
 				</div>
 			</div>
 		</header>
 
-		<section id="main"></section>
+		<section id="main">
+			<div class="container">
+				<ul id="list" class="list-inline"></ul>
+			</div>
+		</section>
 
 		<footer id="footer">
 			<div class="container">
@@ -36,8 +42,8 @@
 						<a href="http://handlebarsjs.org" target="_blank">
 							<span class="label label-info">Handlebars</span>
 						</a>,
-						<a href="http://www.themoviedb.org" target="_blank">
-							<span class="label label-warning">themoviedb.org API</span>
+						<a href="https://github.com/Giphy/GiphyAPI" target="_blank">
+							<span class="label label-warning">Giphy API</span>
 						</a> and 
 						<span class="label label-danger">
 							a little patience
@@ -49,12 +55,13 @@
 	</section>
 
 
-	<script type="text/x-handlebars-template" id="person-handlebars">
-		<div class="person-view">
-			{{id_person}}<br>
-		    {{name}}<br>
-		    {{img_url}}{{profile_path}}
-		</div>
+	<script type="text/x-handlebars-template" id="gif-handlebars">
+	    <img 
+	    	src="{{images.fixed_width_still.url}}" 
+	    	data-id="{{id}}" 
+	    	data-still="{{images.fixed_width_still.url}}" 
+	    	data-downsize-gif="{{images.fixed_width.url}}" 
+	    	data-original-gif="{{images.original.url}}" />
 	</script>
 
 	<script src="js/lib/jquery.min.js"></script>
@@ -63,13 +70,12 @@
 	<script src="js/lib/backbone.localStorage.js"></script>
 	<script src="js/lib/handlebars.js"></script>
 
-	<script src="js/models/personModel.js"></script>
-	<script src="js/models/movieModel.js"></script>
+	<script src="js/models/searchModel.js"></script>
 
 	<script src="js/collections/appCollection.js"></script>
 
 	<script src="js/views/applicationView.js"></script>
-	<script src="js/views/personView.js"></script>
+	<script src="js/views/gifView.js"></script>
 
 	<script src="js/routers/router.js"></script>
 
