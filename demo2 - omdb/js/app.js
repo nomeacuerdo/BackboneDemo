@@ -1,7 +1,7 @@
 var app = app || {};
 var ENTER_KEY = 13;
-var API_URL = 'https://api.themoviedb.org/3/';
-var API_KEY = 'de7fab6bd303eb74ed839e0239ca0cef';
+var API_URL = 'http://api.giphy.com/v1/gifs/search';
+var API_KEY = 'dc6zaTOxFJmzC';
 var IMG_URL = 'http://image.tmdb.org/t/p/w500';
 
 $(function() {

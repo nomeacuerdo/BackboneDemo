@@ -1,8 +1,9 @@
 var app = app || {};
 
 app.personModel = Backbone.Model.extend({
-  //urlRoot: 'http://api.themoviedb.org/3/search/person/',
-  urlRoot: 'https://api.github.com/repos/vmg/redcarpet/issues?state=closed',
+  urlRoot: 'http://api.giphy.com/v1/gifs/search',
+  api_key: "dc6zaTOxFJmzC", 
+  q: ""
 /*
   ,
   //Atributos por default
