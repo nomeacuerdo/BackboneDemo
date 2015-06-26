@@ -1,18 +1,13 @@
 var app = app || {};
 
 app.applicationView = Backbone.View.extend({
-	el: '#main',
+	el: '#todoapp',
 
-    initialize:function(){
-    	var people = [{ id_person: 190, name: "Clint Eastwood", profile_path: "/n8h4ZHteFFXfmzUW6OEaPWanDnm.jpg" },
-	    { id_person: 287, name: "Brad Pitt", profile_path: "/kc3M04QQAuZ9woUvH3Ju5T7ZqG5.jpg" },
-	    { id_person: 1370, name: "Brad Dourif", profile_path: "/6pqeGxtWEdDjYsnQfUkmzXLlDvs.jpg" }];
-	    
+    initialize:function(){	    
 	    this.$input = this.$('#search');
 	    this.$main = this.$('#main');
-	    this.people = people;
 
-        this.collection = new appCollection(this.people);
+        this.collection = new appCollection(API_URL);
         this.render();
     },
 	events: {
@@ -30,15 +25,23 @@ app.applicationView = Backbone.View.extend({
         var personView = new app.personView({
             model: item
         });
-        this.$el.append(personView.render().el);
+        this.$main.append(personView.render().el);
     },
 
 	searchOnEnter: function(e) {
 		if ( e.which !== ENTER_KEY || !this.$input.val().trim() ) {
-			console.log("Blerp");
 			return;
 		}
 
-		console.log("Search");
+
+		var search_url = API_URL+'/search/person/?api_key='+API_KEY+'&query='+encodeURIComponent(this.$input.val());
+
+		this.collection.fetch({
+			success: function(request, response){
+				console.log( 'Get response:' );
+				console.log( request );
+				console.log( response );
+			}
+		});
 	}
 });
