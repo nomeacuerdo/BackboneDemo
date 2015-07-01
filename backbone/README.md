@@ -1,5 +1,5 @@
 Slack's conversation enhancer
 
-URL: http://nomeacuerdo.github.io/demo2%20-%20omdb/
+Demo URL: http://nomeacuerdo.github.io/backbone/
 
 ↑ ↑ ↓ ↓ ← → ← → B A
