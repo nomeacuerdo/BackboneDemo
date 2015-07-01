@@ -1,18 +1,18 @@
 var app = app || {};
 
 var Workspace = Backbone.Router.extend({
-  routes:{
-    '*filter': 'setFilter'
-  },
+    routes: {
+        '*filter': 'setFilter'
+    },
 
-  setFilter: function( param ) {
-    if (param) {
-      param = param.trim();
+    setFilter: function(param) {
+        if (param) {
+            param = param.trim();
+        }
+        app.collectionFilter = param || '';
+
+        app.appCollection.trigger('search');
     }
-    app.collectionFilter = param || '';
-    
-    app.appCollection.trigger('search');
-  }
 });
 
 app.ApiRouter = new Workspace();

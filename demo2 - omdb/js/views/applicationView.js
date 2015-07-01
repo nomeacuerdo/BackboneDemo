@@ -9,9 +9,11 @@ app.applicationView = Backbone.View.extend({
 		this.$results = this.$('#results');
 		this.$more = this.$('#moar');
 
-		this.listenTo(app.appCollection, 'search', this.searchShit);
-
 		this.collection = app.appCollection;
+		
+		this.listenTo(app.appCollection, 'search', this.searchShit);
+		this.listenTo(app.appCollection, 'sync', this.render);
+
 		this.render();
     },
 
@@ -20,7 +22,23 @@ app.applicationView = Backbone.View.extend({
 		'click #moar': 'searchMoar'
 	},
 
-    render: function(){
+    render: function(){ //Aqui va todo lo de mostrar datos
+    	var that = this;
+    	var pagination = this.collection.pagination;
+
+    	_.each(this.collection.models, function(item, key){
+			if(key < this.collection.pagination.count){
+		        var gifView = new app.gifView({
+		            model: item.attributes
+		        });
+		        that.$list.append(gifView.render().el);
+		    }
+		}, this);
+
+		if( pagination && 
+			pagination.total_count > (pagination.count * (pagination.offset + 1))) {
+			this.$more.show();
+		}
     },
 
 	searchOnEnter: function(e) {
@@ -34,49 +52,16 @@ app.applicationView = Backbone.View.extend({
 	searchMoar: function(e) {
 		e.preventDefault();
 		var page = this.$more.data("page");
-		this.$more.attr("data-page",(page+1));
-		
-		this.searchGif(this.$input.val(),page);
-	},
+		var offset = this.collection.pagination.count * page;
+		this.$more.data("page",(page+1));
+		this.$more.hide();
 
-	searchGif: function(query, off) {
-		var gifs = new app.searchModel();
-		var that = this;
-		var qqq = query;
-
-		this.$results.html("");
-		if(off === 0) {
-			this.$list.html("");
-		}
-
-		gifs.fetch({
-			data: $.param({api_key: API_KEY, q: query, offset: off}),
-			success: function(results){
-				var total_count = results.attributes.pagination.total_count;
-				var pg_count = results.attributes.pagination.count;
-				var title = qqq+" - "+total_count+" results";
-
-				if(total_count > (pg_count * (off + 1))) {
-					that.$more.show();
-				}
-				that.$results.html(title);
-				
-				_.each(results.attributes.data, function(item, key){
-					if(key < pg_count){
-				        var gifView = new app.gifView({
-				            model: item
-				        });
-				        that.$list.append(gifView.render().el);
-				    }
-				}, this);
-			}
-		});
+		this.collection.buscarGif(app.collectionFilter, offset);
 	},
 
 	searchShit : function () {	//Uses the filter for the search
 		this.$input.val(app.collectionFilter);
 		this.$list.html("");
-		//this.model.saveSearch(app.collectionFilter); //Guardar en Localstorage
-		this.searchGif(app.collectionFilter,0);
+		this.collection.buscarGif(app.collectionFilter, 0);
 	}
 });

@@ -12,9 +12,9 @@ app.gifView = Backbone.View.extend({
 	},
 
 	render: function() {
-		var preload = new Image();
-		preload.src = this.model.downsizeGif;
-		
+		var preload = new Image();		
+		preload.src = this.model.images.fixed_width.url;
+console.log("ID: "+this.model.id);
 		this.$el.html( this.template( this.model ) );
 		return this;
 	},
