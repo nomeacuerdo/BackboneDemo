@@ -9,9 +9,11 @@ app.applicationView = Backbone.View.extend({
 		this.$results = this.$('#results');
 		this.$more = this.$('#moar');
 
-		this.listenTo(app.appCollection, 'search', this.searchShit);
-
 		this.collection = app.appCollection;
+		
+		this.listenTo(app.appCollection, 'search', this.searchShit);
+		this.listenTo(app.appCollection, 'sync', this.render);
+
 		this.render();
     },
 
@@ -20,7 +22,17 @@ app.applicationView = Backbone.View.extend({
 		'click #moar': 'searchMoar'
 	},
 
-    render: function(){
+    render: function(){ //Aqui va todo lo de mostrar datos
+    	console.log(this.collection.pagination);
+
+		_.each(this.models, function(item, key){
+			if(key < pg_count){
+		        var gifView = new app.gifView({
+		            model: item
+		        });
+		        that.$list.append(gifView.render().el);
+		    }
+		}, this);
     },
 
 	searchOnEnter: function(e) {
@@ -40,7 +52,7 @@ app.applicationView = Backbone.View.extend({
 	},
 
 	searchGif: function(query, off) {
-		var gifs = new app.searchModel();
+		var gifs = this.collection;
 		var that = this;
 		var qqq = query;
 
@@ -77,6 +89,8 @@ app.applicationView = Backbone.View.extend({
 		this.$input.val(app.collectionFilter);
 		this.$list.html("");
 		//this.model.saveSearch(app.collectionFilter); //Guardar en Localstorage
-		this.searchGif(app.collectionFilter,0);
+		//this.searchGif(app.collectionFilter,0);
+		this.collection.buscarGif(app.collectionFilter);
+		console.log(this.collection);
 	}
 });
