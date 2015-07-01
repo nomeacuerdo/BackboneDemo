@@ -2,24 +2,23 @@ var app = app || {};
 
 var appCollection = Backbone.Collection.extend({
     model: app.searchModel,
-    localStorage: new Backbone.LocalStorage('gifs'),
-    url: 'http://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&q=bugs',
+    url: 'http://api.giphy.com/v1/gifs/search',
     params: {
         "api_key": "dc6zaTOxFJmzC",
-        "q": "Test"
+        "q": "",
+        "offset": 0
     },
 
     initialize: function() {},
-    buscarGif: function(query) {
+    buscarGif: function(query, offset) {
     	this.params.q = query;
-    	this.fetch();
-    	//this.fetch({
-    		//data: $.param(this.params)
-    	//});
+    	this.params.offset = offset;
+
+    	this.fetch({data: $.param(this.params)});
     }, 
     parse: function(response) {
     	this.pagination = response.pagination;
-    	console.log(response);
+
     	return response.data;
     }
 });
