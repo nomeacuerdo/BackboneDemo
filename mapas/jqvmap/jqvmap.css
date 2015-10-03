@@ -1,0 +1,21 @@
+.jqvmap-label {
+	background: #292929;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	color: white;
+	display: none;
+	font-family: sans-serif, Verdana;
+	font-size: smaller;
+	padding: 3px;
+	position: absolute;
+}
+
+.jvectormap-region {
+  cursor: pointer;
+}
+
+.jqvmap-ajax_response {
+  height: 500px;
+  width: 100%;
+}
