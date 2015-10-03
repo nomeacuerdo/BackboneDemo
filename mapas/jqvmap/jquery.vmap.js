@@ -23,9 +23,7 @@
     borderWidth: 1,
     borderOpacity: 1,
     selectedRegions: 1,
-    multiSelectRegion: 1,
-    //EMPANADA: AGREGA SCALES PARA EL SEGUNDO CONTENEDOR
-    scaleCanvas: 1
+    multiSelectRegion: 1
   };
 
   var apiEvents = {
@@ -41,21 +39,21 @@
 
     var defaultParams = {
       map: 'world_en',
-      backgroundColor: '#a5bfdd',
-      color: '#f4f3f0',
-      hoverColor: '#c9dfaf',
-      selectedColor: '#c9dfaf',
-      scaleColors: ['#b6d6ff', '#005ace'],
-      normalizeFunction: 'linear',
-      enableZoom: true,
-      showTooltip: true,
-      borderColor: '#818181',
-      borderWidth: 1,
+      backgroundColor: '#FFFFFF',
+      borderColor: '#FFFFFF',
       borderOpacity: 0.25,
+      borderWidth: 1,
+      color: '#74B700',
+      enableZoom: false,
+      hoverColor: '#116B08',
+      hoverOpacity: null,
+      normalizeFunction: 'linear',
+      scaleColors: ['#74B700', '#116B08'],
+      selectedColor: '#116B08',
+      selectedRegion: null,
+      showTooltip: true,
       selectedRegions: null,
-      multiSelectRegion: false,
-      //EMPANADA: AGREGA SCALES PARA EL SEGUNDO CONTENEDOR
-      scaleCanvas: 1
+      multiSelectRegion: false
     }, map = this.data('mapObject');
 
     if (options === 'addMap') {
@@ -247,9 +245,7 @@
       return node;
     },
 
-    //EMPANADA: RECIBE NUEVOS PARAMS.
-    //applyTransformParams: function (scale, transX, transY) {
-    applyTransformParams: function (scale, scaleCanvas, transX, transY) {
+    applyTransformParams: function (scale, transX, transY) {
       if (this.mode == 'svg') {
         //EMPANADA: AGREGA LOS ATRIBUTOS DE ESCALA DEL SUBGRUPO
         //this.rootGroup.setAttribute('transform', 'scale(' + scale + ') translate(' + transX + ', ' + transY + ')');,
@@ -377,9 +373,6 @@
     this.selectedRegions = [];
     this.multiSelectRegion = params.multiSelectRegion;
 
-    //EMPANADA: ASIGNA LOS VALORES DE ESCALA
-    this.scaleCanvas = params.scaleCanvas;
-
     this.container = params.container;
 
     this.defaultWidth = mapData.width;
@@ -482,6 +475,7 @@
 
       var path = e.target;
       var code = e.target.id.split('_').pop();
+      var regionClickEvent = $.Event('regionClick.jqvmap');
 
       jQuery(params.container).trigger('regionClick.jqvmap', [code, mapData.pathes[code].name]);
       if (!regionClickEvent.isDefaultPrevented()) {
@@ -752,9 +746,7 @@
       else if (this.transX < minTransX) {
         this.transX = minTransX;
       }
-      //EMPANADA: CAMBIA LA ESCALA DEL CONTENEDOR DE ACUERDO A LA NUEVA ESCALA
-      //this.canvas.applyTransformParams(this.scale, this.transX, this.transY);
-      this.canvas.applyTransformParams(this.scale, this.scaleCanvas, this.transX, this.transY);
+      this.canvas.applyTransformParams(this.scale, this.transX, this.transY);
     },
 
     makeDraggable: function () {
