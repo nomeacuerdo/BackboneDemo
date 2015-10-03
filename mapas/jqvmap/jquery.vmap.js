@@ -24,11 +24,8 @@
     borderOpacity: 1,
     selectedRegions: 1,
     multiSelectRegion: 1,
-    //EMPANADA
-    scaleWidth: 1,
-    scaleHeight: 1,
-    offsetX: 0,
-    offsetY: 0
+    //EMPANADA: AGREGA SCALES PARA EL SEGUNDO CONTENEDOR
+    scaleCanvas: 1
   };
 
   var apiEvents = {
@@ -57,11 +54,8 @@
       borderOpacity: 0.25,
       selectedRegions: null,
       multiSelectRegion: false,
-      //EMPANADA
-      scaleWidth: 1,
-      scaleHeight: 1,
-      offsetX: 0,
-      offsetY: 0
+      //EMPANADA: AGREGA SCALES PARA EL SEGUNDO CONTENEDOR
+      scaleCanvas: 1
     }, map = this.data('mapObject');
 
     if (options === 'addMap') {
@@ -246,18 +240,23 @@
       }
 
       if (isRoot) {
-        //EMPANADA
+        //EMPANADA: AGREGA EL CONTENEDOR DEL CONTENEDOR
         this.grootGroup = node;
         this.rootGroup = node;
       }
       return node;
     },
 
-    applyTransformParams: function (scale, transX, transY) {
+    //EMPANADA: RECIBE NUEVOS PARAMS.
+    //applyTransformParams: function (scale, transX, transY) {
+    applyTransformParams: function (scale, scaleCanvas, transX, transY) {
       if (this.mode == 'svg') {
-        //EMPANADA
-        //this.rootGroup.setAttribute('transform', 'scale(' + scalexxx + ') translate(' + transX + ', ' + transY + ')');,
-        this.rootGroup.setAttribute('transform', "scale("+this.params.scaleWidth+","+this.params.scaleHeight+")" );
+        //EMPANADA: AGREGA LOS ATRIBUTOS DE ESCALA DEL SUBGRUPO
+        //this.rootGroup.setAttribute('transform', 'scale(' + scale + ') translate(' + transX + ', ' + transY + ')');,
+        var h = this.params.container.height();
+        var sc = this.params.container.width() / 10000;
+        this.grootGroup.setAttribute('transform', "matrix(1.25,0,0,-1.25,-1.25,"+h+")" );
+        this.rootGroup.setAttribute('transform', "scale("+sc+","+sc+")" );
       } else {
         this.rootGroup.coordorigin = (this.width - transX) + ',' + (this.height - transY);
         this.rootGroup.coordsize = this.width / scale + ',' + this.height / scale;
@@ -378,9 +377,8 @@
     this.selectedRegions = [];
     this.multiSelectRegion = params.multiSelectRegion;
 
-    //EMPANADA
-    this.scaleWidth = params.scaleWidth;
-    this.scaleHeight = params.scaleHeight;
+    //EMPANADA: ASIGNA LOS VALORES DE ESCALA
+    this.scaleCanvas = params.scaleCanvas;
 
     this.container = params.container;
 
@@ -403,6 +401,8 @@
       map.height = params.container.height();
       map.resize();
       map.canvas.setSize(map.width, map.height);
+      //EMPANADA: APLICA EL TRANSFORM AL GRUPO CONTENEDOR EN RESIZE
+      map.grootGroup.setAttribute('transform', "matrix(1.25,0,0,-1.25,-1.25,"+map.height+")" );
       map.applyTransform();
     });
 
@@ -411,7 +411,7 @@
 
     this.makeDraggable();
 
-    //EMPANADA
+    //EMPANADA: CREA EL GRUPO ADICIONAL CONTENEDOR
     this.grootGroup = this.canvas.createGroup(true);
     this.rootGroup = this.canvas.createGroup(true);
 
@@ -516,9 +516,12 @@
     }
 
     this.setColors(params.colors);
-    //EMPANADA
+    //EMPANADA: AGREGA EL GRUPO ORIGINAL AL NUEVO GRUPO CONTENEDOR QUE TIENE EL MATRIX
+    // Y APLICA TRANSFORM Y SCALE A LOS CONTENEDORES
     //this.canvas.canvas.appendChild(this.rootGroup);
-    this.grootGroup.setAttribute('transform', "matrix(1.25,0,0,-1.25,"+params.offsetX+","+params.offsetY+")" );
+    var sc = params.container.width() / 10000;
+    this.grootGroup.setAttribute('transform', "matrix(1.25,0,0,-1.25,-1.25,"+params.container.height()+")" );
+    this.rootGroup.setAttribute('transform', "scale("+sc+","+sc+")" );
     this.grootGroup.appendChild(this.rootGroup);
     this.canvas.canvas.appendChild(this.grootGroup);
 
@@ -705,6 +708,7 @@
       this.scale *= this.baseScale / curBaseScale;
       this.transX *= this.baseScale / curBaseScale;
       this.transY *= this.baseScale / curBaseScale;
+
     },
 
     reset: function () {
@@ -748,8 +752,9 @@
       else if (this.transX < minTransX) {
         this.transX = minTransX;
       }
-
-      this.canvas.applyTransformParams(this.scale, this.transX, this.transY);
+      //EMPANADA: CAMBIA LA ESCALA DEL CONTENEDOR DE ACUERDO A LA NUEVA ESCALA
+      //this.canvas.applyTransformParams(this.scale, this.transX, this.transY);
+      this.canvas.applyTransformParams(this.scale, this.scaleCanvas, this.transX, this.transY);
     },
 
     makeDraggable: function () {

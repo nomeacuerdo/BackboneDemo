@@ -13,10 +13,7 @@ $('#bogota').vectorMap({
     selectedColor: '#FF00FF',
     selectedRegion: null,
     showTooltip: true,
-    scaleWidth: 0.084,
-    scaleHeight: 0.085,
-    offsetX: -1.25,
-    offsetY: 330,
+    scaleCanvas: 0.085,
     onRegionOver: function(event, code) {
         if (code == '14' || code == '20') {
             event.preventDefault();
@@ -24,13 +21,10 @@ $('#bogota').vectorMap({
     },
     onRegionClick: function(element, code, region)
     {
-      /*
       var url = link_data[code];
 
       if (code != '14' && code != '20') {
         window.location = url;
       }
-      */
-      event.preventDefault();
     }
 });
