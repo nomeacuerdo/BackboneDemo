@@ -249,7 +249,12 @@
       if (this.mode == 'svg') {
         //EMPANADA: AGREGA LOS ATRIBUTOS DE ESCALA DEL SUBGRUPO
         //this.rootGroup.setAttribute('transform', 'scale(' + scale + ') translate(' + transX + ', ' + transY + ')');,
-        var h = this.params.container.height();
+        var h;
+        if(this.params.map == 'bogota'){
+            h = this.params.container.height();
+        } else {
+            h = this.params.container.width();
+        }
         var sc = this.params.container.width() / 10000;
         this.grootGroup.setAttribute('transform', "matrix(1.25,0,0,-1.25,-1.25,"+h+")" );
         this.rootGroup.setAttribute('transform', "scale("+sc+","+sc+")" );
@@ -395,7 +400,13 @@
       map.resize();
       map.canvas.setSize(map.width, map.height);
       //EMPANADA: APLICA EL TRANSFORM AL GRUPO CONTENEDOR EN RESIZE
-      map.grootGroup.setAttribute('transform', "matrix(1.25,0,0,-1.25,-1.25,"+map.height+")" );
+      var h;
+      if(params.map == 'bogota'){
+          h = map.height;
+      } else {
+          h = map.width;
+      }
+      map.grootGroup.setAttribute('transform', "matrix(1.25,0,0,-1.25,-1.25,"+h+")" );
       map.applyTransform();
     });
 
@@ -514,7 +525,13 @@
     // Y APLICA TRANSFORM Y SCALE A LOS CONTENEDORES
     //this.canvas.canvas.appendChild(this.rootGroup);
     var sc = params.container.width() / 10000;
-    this.grootGroup.setAttribute('transform', "matrix(1.25,0,0,-1.25,-1.25,"+params.container.height()+")" );
+    var h;
+    if(params.map == 'bogota'){
+        h = params.container.height();
+    } else {
+        h = params.container.width();
+    }
+    this.grootGroup.setAttribute('transform', "matrix(1.25,0,0,-1.25,-1.25,"+h+")" );
     this.rootGroup.setAttribute('transform', "scale("+sc+","+sc+")" );
     this.grootGroup.appendChild(this.rootGroup);
     this.canvas.canvas.appendChild(this.grootGroup);
