@@ -23,7 +23,8 @@ $(function() {
               }
             }
         });
-    } else if ($('#colombia').length) {
+    }
+    if ($('#colombia').length) {
         $('#colombia').vectorMap({
             map: 'colombia',
             borderOpacity: 0.95,
