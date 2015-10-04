@@ -1,0 +1,59 @@
+@media only screen and (max-width: 479px) {
+    .map {
+        width: 280px;
+    }
+    .bogota {
+        height: 120px;
+    }
+    .colombia {
+        height: 380px;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    .map {
+        width: 400px;
+    }
+    .bogota {
+        height: 170px;
+    }
+    .colombia {
+        height: 542px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 980px) {
+    .map {
+        width: 680px;
+    }
+    .bogota {
+        height: 285px;
+    }
+    .colombia {
+        height: 922px;
+    }
+}
+
+@media only screen and (min-width: 981px) and (max-width: 1100px) {
+    .map {
+        width: 700px;
+    }
+    .bogota {
+        height: 295px;
+    }
+    .colombia {
+        height: 949px;
+    }
+}
+
+@media only screen and (min-width: 1101px) {
+    .map {
+        width: 785px;
+    }
+    .bogota {
+        height: 330px;
+    }
+    .colombia {
+        height: 1064px;
+    }
+}
