@@ -9,7 +9,7 @@ $(function() {
             },
             onRegionClick: function(element, code, region)
             {
-              var url = link_data[code];
+              var url = link_data_bogota[code];
 
               if (code != '14' && code != '20') {
                 window.location = url;
@@ -28,7 +28,7 @@ $(function() {
             },
             onRegionClick: function(element, code, region)
             {
-              var url = link_data[code];
+              var url = link_data_colombia[code];
 
               if (!(code != "02" && code != "04" && code != "05" && code != "06" && code != "07" && code != "09" && code != "18" && code != "21" && code != "22" && code != "23")) {
                 window.location = url;
