@@ -2,39 +2,60 @@ $(function() {
     if ($('#bogota').length) {
         $('#bogota').vectorMap({
             map: 'bogota',
+            onLabelShow: function(event, a, code) {
+                if(/[0-9]/.test(code)) {
+                } else {
+                    event.preventDefault();
+                }
+            },
             onRegionOver: function(event, code) {
-                if (code == '14' || code == '20') {
+                if(/[0-9]/.test(code)) {
+                    if (code == '14' || code == '20') {
+                        event.preventDefault();
+                    }
+                } else {
                     event.preventDefault();
                 }
             },
             onRegionSelect: function(element, code, region) {
-                if (code == '14' || code == '20') {
+                if(/[0-9]/.test(code)) {
+                    if (code == '14' || code == '20') {
+                        event.preventDefault();
+                    }
+                } else {
                     event.preventDefault();
                 }
             },
             onRegionClick: function(element, code, region)
             {
-              var url = link_data_bogota[code];
+                if(/[0-9]/.test(code)) {
+                    var url = link_data_bogota[code];
 
-              if (code != '14' && code != '20') {
-                window.location = url;
-              } else {
-                event.preventDefault();
-              }
+                    if (code != '14' && code != '20') {
+                        window.location = url;
+                    } else {
+                        event.preventDefault();
+                    }
+                } else {
+                    event.preventDefault();
+                }
             }
         });
-    } else if ($('#colombia').length) {
+    }
+    if ($('#colombia').length) {
         $('#colombia').vectorMap({
             map: 'colombia',
             borderOpacity: 0.95,
             borderWidth: 10,
             onRegionOver: function(event, code) {
-                if (code != "02" && code != "04" && code != "05" && code != "06" && code != "07" && code != "09" && code != "18" && code != "21" && code != "22" && code != "23") {
+                if (code == "01" || code == "13" || code == "15" || code == "24" || code == "31" || code == "33") {
+                    console.log(code);
                     event.preventDefault();
                 }
             },
             onRegionSelect: function(element, code, region) {
-                if (code != "02" && code != "04" && code != "05" && code != "06" && code != "07" && code != "09" && code != "18" && code != "21" && code != "22" && code != "23") {
+                if (code == "01" || code == "13" || code == "15" || code == "24" || code == "31" || code == "33") {
+                    console.log(code);
                     event.preventDefault();
                 }
             },
@@ -42,7 +63,8 @@ $(function() {
             {
               var url = link_data_colombia[code];
 
-              if (!(code != "02" && code != "04" && code != "05" && code != "06" && code != "07" && code != "09" && code != "18" && code != "21" && code != "22" && code != "23")) {
+              if (!(code == "01" || code == "13" || code == "15" || code == "24" || code == "31" || code == "33")) {
+                console.log(code);
                 window.location = url;
               } else {
                 event.preventDefault();
