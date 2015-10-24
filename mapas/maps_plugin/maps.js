@@ -48,13 +48,13 @@ $(function() {
             borderOpacity: 0.95,
             borderWidth: 10,
             onRegionOver: function(event, code) {
-                if (code == "01" || code == "15" || code == "33") {
+                if (code == "01" || code == "33") {
                     console.log(code);
                     event.preventDefault();
                 }
             },
             onRegionSelect: function(element, code, region) {
-                if (code == "01" || code == "15" || code == "33") {
+                if (code == "01" || code == "33") {
                     console.log(code);
                     event.preventDefault();
                 }
@@ -63,7 +63,7 @@ $(function() {
             {
               var url = link_data_colombia[code];
 
-              if (!(code == "01" || code == "15" || code == "33")) {
+              if (!(code == "01" || code == "33")) {
                 console.log(code);
                 window.location = url;
               } else {
