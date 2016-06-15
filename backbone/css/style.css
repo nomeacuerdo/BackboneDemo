@@ -1,0 +1,23 @@
+#main {
+	min-height: 400px;
+}
+.list-inline > li.gif-view {
+	text-align: center;
+	height: 150px;
+	padding: 15px 0;
+	box-sizing: content-box;
+	float: none;
+	vertical-align: top;
+}
+.gif-view img {
+	max-height: 150px;
+}
+#gifModal img {
+	max-width: 100%;
+}
+#moar {
+	display: none;
+}
+#hey {
+	display: none;
+}
