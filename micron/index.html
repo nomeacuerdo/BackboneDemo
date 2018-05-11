@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Micron framework</title>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="dist/micron.min.css">
+</head>
+<body>
+  <h1><a href="https://github.com/nomeacuerdo/micron">Micron grid system</a></h1>
+  <p>
+    Responsive grid framework based on flexbox.
+  </p>
+  <hr class="mb"/>
+  <h2>Examples (use the inspector to see the markup)</h2>
+  <h3>Rows that fit as they're added</h3>
+  <div class="row">
+    <div class="col">auto width cell</div>
+    <div class="col">auto width cell</div>
+    <div class="col">auto width cell</div>
+    <div class="col">auto width cell</div>
+  </div>
+  <h3>Rows that fit as they're added, inside a container</h3>
+  <div class="container">
+    <div class="row">
+      <div class="col">.col</div>
+      <div class="col">.col</div>
+    </div>
+  </div>
+  <h3>Cells distribute in small, use 3/12 each from md on</h3>
+  <div class="container">
+    <div class="row">
+      <div class="col md-3">md-3</div>
+      <div class="col md-3">md-3</div>
+    </div>
+  </div>
+  <h3>Cells that stack</h3>
+  <div class="row">
+    <div class="col sm-12">col sm-12</div>
+    <div class="col sm-12">col sm-12</div>
+  </div>
+  <h3>Cells that overflow on small &amp; large</h3>
+  <div class="row">
+    <div class="col sm-12 md-6 lg-11">sm-12 md-6 lg-11</div>
+    <div class="col sm-11 md-6 lg-12">sm-11 md-6 lg-12</div>
+  </div>
+  <h3>Cells that align to the top (by default)</h3>
+  <div class="container">
+    <div class="row tall">
+      <div class="col sm-4">sm-4</div>
+      <div class="col sm-8">sm-8</div>
+    </div>
+  </div>
+  <h3>Cells that align to the middle</h3>
+  <div class="container">
+    <div class="row align-middle tall">
+      <div class="col sm-8">sm-8 .row.align-center</div>
+      <div class="col sm-4">sm-4</div>
+    </div>
+  </div>
+  <h3>Cells that align to the bottom</h3>
+  <div class="container">
+    <div class="row align-bottom tall">
+      <div class="col sm-6 mb">sm-6 .row.align-bottom (+margin-bottom: 10px)</div>
+      <div class="col sm-6">sm-6 (notice how this aligns including the bottom margin)</div>
+    </div>
+  </div>
+  <h3>Cells that stretch to the height of the row</h3>
+  <div class="container">
+    <div class="row align-stretch tall">
+      <div class="col sm-4">sm-4</div>
+      <div class="col sm-8">sm-8 .row.align-stretch</div>
+    </div>
+  </div>
+  <h3>Cells that align horizontally</h3>
+  <div class="container">
+    <div class="row gray align-left">
+      <div class="col sm-4">.row.align-left</div>
+    </div>
+    <div class="row gray align-center">
+      <div class="col sm-4">.row.align-center</div>
+    </div>
+    <div class="row gray align-right">
+      <div class="col sm-4">.row.align-right</div>
+    </div>
+  </div>
+  <h3>Now both</h3>
+  <div class="container">
+    <div class="row tall align-center align-middle">
+      <div class="col sm-4">.row.align-center.align-middle</div>
+    </div>
+    </div>
+  </div>
+  <h3>Cells that align against the row</h3>
+  <div class="container">
+    <div class="row tall">
+      <div class="col sm-4 align-start">align-start</div>
+      <div class="col sm-4 align-middle">align-middle</div>
+      <div class="col sm-4 align-end">align-end</div>
+    </div>
+  </div>
+  <h3>Cells with no gutter</h3>
+  <div class="container">
+    <div class="row no-gutter">
+      <div class="col sm-4">sm-4</div>
+      <div class="col sm-4">sm-4</div>
+      <div class="col sm-4">sm-4</div>
+    </div>
+  </div>
+  <h3>Cells with offset</h3>
+  <div class="container">
+    <div class="row">
+      <div class="col sm-3 offset-sm-3">sm-3 offset-sm-3</div>
+      <div class="col sm-3 offset-md-3">sm-3 offset-md-3</div>
+      <div class="col sm-12 md-5 offset-md-1">sm-12 md-5 offset-md-1</div>
+      <div class="col sm-12 md-5 offset-sm-1">sm-12 md-5 offset-sm-1</div>
+    </div>
+  </div>
+  <hr class="mb"/>
+  <h3>Nesting</h3>
+  <div class="container">
+    <div class="row align-center">
+      <div class="col sm-9">
+        Level 1: .sm-9
+        <div class="row">
+          <div class="col sm-6">
+            Level 2: .sm-6
+          </div>
+          <div class="col sm-6">
+            Level 2: .sm-6
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="mb"/>
+  <h3>Visibility</h3>
+  <div class="container table">
+    <div class="row mb0 align-stretch">
+      <div class="col gray"></div>
+      <div class="col gray"><strong>sm (max-width: 690px)</strong></div>
+      <div class="col gray"><strong>md (max-width: 1020px)</strong></div>
+      <div class="col gray"><strong>lg (min-width: 1020px)</strong></div>
+    </div>
+    <div class="row mb0 align-stretch">
+      <div class="col gray"><strong>hide-from</strong></div>
+      <div class="col"><div class="hide-from-sm">hide-from-sm</div> (always hidden)</div>
+      <div class="col"><div class="hide-from-md">hide-from-md</div></div>
+      <div class="col"><div class="hide-from-lg">hide-from-lg</div></div>
+    </div>
+    <div class="row mb0 align-stretch">
+      <div class="col gray"><strong>show-from</strong></div>
+      <div class="col"><div class="show-from-sm">show-from-sm (always shown)</div></div>
+      <div class="col"><div class="show-from-md">show-from-md</div></div>
+      <div class="col"><div class="show-from-lg">show-from-lg</div></div>
+    </div>
+    <div class="row mb0 align-stretch">
+      <div class="col gray"><strong>show-only</strong></div>
+      <div class="col"><div class="show-only-sm">show-only-sm</div></div>
+      <div class="col"><div class="show-only-md">show-only-md</div></div>
+      <div class="col"><div class="show-only-lg">show-only-lg</div></div>
+    </div>
+  </div>
+</body>
+</html>

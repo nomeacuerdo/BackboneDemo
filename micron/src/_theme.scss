@@ -1,0 +1,40 @@
+body {
+  font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
+}
+a {
+  color: indianred;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active,
+  &visited {
+    color: inherit;
+  }
+}
+.row {
+  margin-bottom: 10px!important;
+}
+[class*="sm-"],
+.col {
+  border: 1px solid black;
+}
+.tall {
+  height: 150px;
+  background: silver;
+}
+.gray {
+  background: silver;
+}
+.mb {
+  margin-bottom: 10px;
+}
+.mb0 {
+  margin-bottom: 0!important;
+}
+@media screen and (max-width: 43.125rem) {
+  .table {
+    font-size: 0.7rem;
+  }
+}

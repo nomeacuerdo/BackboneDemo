@@ -1,0 +1,92 @@
+// Container
+.container {
+	margin: 0 auto;
+	max-width: rem($container-max-width);
+	padding: 0 rem($gutter);
+	position: relative;
+	width: 100%;
+	
+	> .row {
+		margin: 0 rem(-1 * $gutter);
+	}
+}
+// Rows
+.row {
+	align-items: flex-start;
+	display: flex;
+  flex-wrap: wrap;
+
+	&.align-top {
+		align-items: flex-start;
+	}
+
+	&.align-middle {
+		align-items: center;
+	}
+
+	&.align-bottom {
+		align-items: flex-end;
+	}
+
+	&.align-stretch {
+		align-items: stretch;
+	}
+
+	&.align-left {
+		justify-content: left;
+	}
+
+	&.align-center {
+		justify-content: center;
+	}
+
+	&.align-right {
+		justify-content: flex-end;
+	}
+}
+// Columns
+.col { // For equally-sized flex columns
+	flex-basis: 0;
+	flex-grow: 1;
+	max-width: 100%;
+	padding: 0 rem($gutter);
+
+	&.align-start {
+		align-self: flex-start;
+	}
+
+	&.align-middle {
+		align-self: center;
+	}
+
+	&.align-end {
+		align-self: flex-end;
+	}
+	
+	@each $breakpoint, $value in $breakpoints {
+		@include breakpoint(rem($value)) {
+			@for $i from 1 through $columns { 
+				&.#{$breakpoint}-#{$i} { // Columns for different sizes
+					flex: 1 1 auto;
+					flex-basis: $i / $columns * 100%;
+					max-width: $i / $columns * 100%;
+				}
+			}
+			@for $i from 1 through $columns - 1 { 
+				&.offset-#{$breakpoint}-#{$i} { // Offsets
+					margin-left: $i / $columns * 100%;
+				}
+			}
+		}
+	}
+}
+
+.no-gutter {
+	margin-right: 0;
+	margin-left: 0;
+
+	> .col {
+		padding-right: 0;
+		padding-left: 0;
+  }
+}

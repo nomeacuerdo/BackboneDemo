@@ -1,0 +1,36 @@
+.visible {
+  visibility: visible;
+}
+.invisible {
+  visibility: hidden;
+}
+[class*="show-from-"],
+[class*="show-only-"] {
+  display: none;
+}
+@each $breakpoint, $value in $breakpoints {
+  @include breakpoint(rem($value)) {
+    .hide-from-#{$breakpoint} {
+      display: none;
+    }
+    .show-from-#{$breakpoint} {
+      display: flex;
+    }
+    @if $breakpoint == $largest-breakpoint {
+      .show-only-#{$breakpoint} {
+        display: flex;
+      }
+    }
+  }
+}
+@for $i from 1 through length($breakpoints) - 1 {
+  $name: nth(nth($breakpoints, $i), 1);
+  $value: nth(nth($breakpoints, $i), 2);
+  $nextname: nth(nth($breakpoints, $i + 1), 1);
+  $nextvalue: nth(nth($breakpoints, $i + 1), 2);
+  @include breakpoint-only(rem($value), rem($nextvalue)) {
+    .show-only-#{$name} {
+      display: flex;
+    }
+  }
+}

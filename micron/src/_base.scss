@@ -1,0 +1,13 @@
+*,
+*:after,
+*:before {
+  box-sizing: inherit;
+}
+
+// Default body styles
+body {
+  box-sizing: border-box;
+	font-size: $global-font-size;
+  line-height: $global-line-height;
+  max-width: 100%;
+}

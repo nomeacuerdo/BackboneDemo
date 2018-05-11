@@ -1,0 +1,70 @@
+// Removes px, em and rem
+@function no-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+// Converts an unit to rem
+@function rem($value, $base: null) {
+  // Verifies that we receive a number
+  @if type-of($value) != 'number' {
+    @warn inspect($value) + ' was passed to rem(), which is not a number.';
+    @return $value;
+  }
+
+  // If no base size is defined, default to global font size
+  @if $base == null {
+    $base: $base-font-size;
+  }
+
+  // Sets the base the same as the base font size
+  @if unit($base) == '%' {
+    $base: ($base / 100%) * $base-font-size;
+  }
+  // Using rem as base allows correct scaling
+  @else if unit($base) == 'rem' {
+    $base: strip-unit($base) * $base-font-size;
+  }
+
+  // Transform em into rem if we have em
+  @if unit($value) == 'em' {
+    $value: no-unit($value) * 1rem;
+  }
+
+  // Calculate rem if units for $value is not rem
+  @if unit($value) != 'rem' {
+    $value: no-unit($value) / no-unit($base) * 1rem;
+  }
+
+  // Turn 0rem into 0
+  @if $value == 0rem {
+    $value: 0;
+  }
+
+  @return $value;
+}
+
+// Breakpoints
+@mixin breakpoint($value) {
+  // Verifies that we receive a number
+  @if type-of($value) != 'number' {
+    @warn inspect($value) + ' was passed to breakpoint(), which is not a number.';
+  } @else {
+    @if $value > 0 {
+      @media screen and (min-width: $value) { @content; }
+    } @else {
+      @content;
+    }
+  }
+}
+@mixin breakpoint-only($top, $bottom) {
+  @if type-of($top) != 'number' {
+    @warn inspect($top) + ' was passed to breakpoint-only($top), which is not a number.';
+  } @else if type-of($bottom) != 'number' {
+    @warn inspect($bottom) + ' was passed to breakpoint-only($bottom), which is not a number.';
+  } @else {
+    @if $top == 0 {
+      @media screen and (max-width: $bottom) { @content; }
+    } @else {
+      @media screen and (min-width: $top) and (max-width: $bottom) { @content; }
+    }
+  }
+}

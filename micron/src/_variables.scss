@@ -1,0 +1,12 @@
+$breakpoints: (
+  sm: 0,
+  md: 690,
+  lg: 1020,
+);
+$largest-breakpoint: lg; // Just to create the show only on (largest) display util
+$base-font-size: 16px !default;
+$global-font-size: 18px !default;
+$global-line-height: 1.4 !default;
+$container-max-width: 1140px;
+$columns: 12;
+$gutter: 15px;
